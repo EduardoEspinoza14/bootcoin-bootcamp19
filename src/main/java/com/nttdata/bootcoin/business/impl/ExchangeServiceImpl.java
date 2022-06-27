@@ -6,6 +6,7 @@ import com.nttdata.bootcoin.repository.ExchangeRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -13,6 +14,11 @@ import reactor.core.publisher.Mono;
 public class ExchangeServiceImpl implements ExchangeService {
 
     private ExchangeRepository exchangeRepository;
+
+    @Override
+    public Flux<Exchange> getExchanges() {
+        return exchangeRepository.findAll();
+    }
 
     @Override
     public Mono<Exchange> getExchange(String id) {
